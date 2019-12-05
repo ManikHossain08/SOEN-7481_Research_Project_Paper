@@ -258,20 +258,37 @@ In terms of answers, again we collect 21 factors from questions that are related
 As we mentioned in Section-\ref{FCMM}, we follow three ways to populate our factors data. Now, in this section we will discuss these three approaches. First, for populating 7 factors data, we developed our third java tool [PROVIDE GITHUB LINK HERE] that will extract questions related factors such as total code length, code ratio or percentage of code in questions body, total number of different types of tags (e.g., bold, italic, link), number of code snippets for all posts (i.e., questions and answers). Once we developed the tool, we extracted these factors in CSV file format for importing into the MSSQL and join with main datasets to combine all the factors in the same table. Second, we also populate two-third (2/3) factors data by MSSQL server using simple, complex and advance level of SQL query [ADD QUERY LINK]. In addition, we also use T-SQL for populating the factor's data. Finally, we use R Studio for calculating some other factors such as  calculating Max/Min/Mean/Median/variance/25 percentile votes of each post of the poster (i.e., asker or answerer). Here, we use R Studio for such kind of calculation because it is very simple to calculate these kind of terms by only using APIs of R packages. 
 
 
-\section{Building Mixed Model}
-In this section, we will discuss the approach of building mixed model in order to find out the more responsible factors that affect the vote differences among the cloned questions and answers in terms of code snippets. We chose mixed-model because our clone groups are not very large. Actually, we manually check the cloned groups by pairwise using SQL query and we found that single question or answer only has several clone, but not too many clone. But Needless to say that, during clone detection processing NiCad generate only 4 huge clone groups with 29616, 5908, 3812 and 9372 clone code snippets for both in questions and answers, hence  we manually removed those unexpected and big cloned groups from our data-set to avoid biased results. Afterward, we decided to do mixed modeling with this data-set.
+\section{Model Construction for Cloned Questions and answers}
+This section presents and discusses the approach along with result of model building in term of our two research questions. For each research question, we describe the approach followed to address the question, and the findings as well.
 
+\subsection{Mixed Model: Pre-processing of Populated Factors Data}
+We decided to build model in order to find out the more responsible factors that affect the vote differences among the cloned questions and answers in terms of code snippets. Therefore, we chose mixed-model because our clone groups are not very large. Actually, we manually check the cloned groups by pairwise using SQL query and we found that single question or answer only has several clone, but not too many clone. But Needless to say that, during clone detection processing NiCad generate only 4 huge clone groups with 29616, 5908, 3812 and 9372 clone code snippets for both in questions and answers, hence  we manually removed those unexpected and big cloned groups from our data-set to avoid biased results. Afterward, we decided to do mixed modeling with this data-set.
 
 In addition,  mixed-model estimates the effects of one or more explanatory variables on a response variable. The output of a mixed model will give us a list of explanatory values, estimates and confidence intervals of their effect sizes, p-values for each effect. We use a mixed model instead of a simple linear model because we have a variable or factor that describes our data sample as a subset of the data we have collected and populated.  
 
-Basically, we build two mixed model, one for questions and another for answers separately. As we collected all the metrics or factors for building mixed-model which discussed in Section-\ref{FCMM}, now here in this section, we will build mixed modeling to find most important factors (i.e., explanatory variables) that have correlation with the votes (i.e., response variable) differences among the cloned questions and answers.  
+\subsection{Mixed Model: Technique Selection}
+Once we cleaned unwanted data, extracted factors and populated all the factors data, we decided to build the mixed model for both cloned questions. Before doing mixed modeling, we pre-process the populated cloned  data-sets for finding suitable technique that fit into our data-sets. Actually, we check the data distribution of each explanatory variables (i.e., factors/ metrics) for modeling by plotting histogram and we found that the data distribution of almost all explanatory variables (except one or two variables) are non-normal (i.e., left skewed or right skewed), hence we select glmmPQL (Fit Generalized Linear Mixed Models via PQL) technique [TODO: add link for this techniqes] to fit out mix model for our non-normal data [13].  Here, PQL mean Penalized Quasi Likelihood which is a flexible technique that actually deal with the abnormal or non-normal data, unbalanced design, and crossed-random effects. Therefore, we finally move forward with PQL technique to find out the important factors through a list of independent (i.e., explanatory variable or factors), estimates and the confidence level of their effect size and p-value for each effect. For glmmPQL technique we need to be load MASS package [TODO: cran link] in R studio.
 
-\subsection{Mixed Model Building for Questions}
-Once we cleaned unwanted data, extracted factors and populate all the factors data for questions, we decided to build the mixed model for cloned questions in terms of code snippets. Before doing mixed modeling, we pre-process the populated cloned questions data.   
-    
+\subsection{Mixed Model: Cloned Questions and Answers}
+As we chose our glmmPQL technique, we tried to build mixed model with that technique to find out most important factors (i.e., explanatory variables) that have relationship with the votes (i.e., response variable) differences among the cloned questions.  Then we will answers our two research questions as follow:
+\newline 
+
+\textbf{RQ1: What are the factors that affects the vote differences of each cloned questions (i.e., cloned in terms of code snippets)?}
+\newline
+
+\textbf{Approach}. By this PQL techniques, we will find the correlation between the dependent and independents variables that affect the vote differences among cloned questions on the Stack Overflow.  In this PQL technique, we consider votes of cloned questions as response variable (i.e., dependent variable) and all other factors are considered as the  explanatory variables (i.e., independent). Additionally,  we randomly change the fixed effect along with the family (e.g., gaussian) in the PQL technique. After several adjustment of family and fixed effect, we set the distribution to log-normal, we also set the family to gaussian (i.e., another word for normal) and the link to log, hence we got better result from this model. 
+
+This model calculate the p-value to determine the significance of the model. We focus on the p-value to know the statistically significance variables because p-value less than 0.05 (typically $\leq$ 0.05) indicates statistically significant. It also indicates strong evidence against the null hypothesis, as there is less than a 5\% probability the null is correct. Therefore, we only focus on those variables who have p-value less than 0.05 (typically $\leq$ 0.05) and ignore those variable who have p-value higher than 0.05 (\textgreater 0.05) in this model. We ignore those variables who have p-value higher than 0.05  because they does not have  relation to the response variable and they does not have any impact on the vote differences of cloned questions.  . Besides, a p-value higher than 0.05 (\textgreater 0.05) is not statistically significant and indicates weak evidence against the null hypothesis. This means we fail to reject the null hypothesis and cannot accept the alternative hypothesis.\newline
+
+\textbf{Resutls}  We apply Anova() function to our model  because Anova() functions does Wald $\chi^2$ test, which tell us how confident we are of our estimate of the effect of explanatory variable. The larger the Wald $\chi^2$ value, the larger the impact of a factor on the vote differences. Table [TODO: tabel no], show the factors list that have the impact on the vote differences of the similar questions on the Stack Overflow. As a result, we can say that the explanatory (i.e., independent) variable marked with stars (*) have effect on the cloned questions and create vote differences among the cloned questions in each group. In terms of results of our model, we notice that there are 11 factors have impact on the vote differences of the cloned questions on the Stack Overflow.
+
+
+
+
+ 
 
 \section{Mixed Model Result}
-	
+	hhhhhhhhhhhhh
 	\section*{Acknowledgment}
 	
 	The preferred spelling of the word ``acknowledgment'' in America is without 
@@ -311,8 +328,9 @@ Once we cleaned unwanted data, extracted factors and populate all the factors da
 		\bibitem{b8} S.M. Nasehi, J. Sillito, F. Maurer, C. Burns, What makes a good code exam- ple?: A study of programming Q\&A in StackOverflow, in: Proceedings of the 28th IEEE International Conference on Software Maintenance (ICSM), 2012, pp. 25–34.
 		\bibitem{b9} C.K Roy, J.R. Cordy and R. Koschke, ”Comparison and evaluation of code clone detection techniques and tools: A qualitative approach”, Sci. Comput. Program. 74(7), pp. 470-495, May 2009.
 		\bibitem{b10} Shaowei Wang, fast answers paper with peter chan
-		\bibitem{b7} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
-		\bibitem{b7} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
+		\bibitem{b11} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
+		\bibitem{b12} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
+		\bibitem{b13} https://ase.tufts.edu/gsc/gradresources/guidetomixedmodelsinr/mixed\%20model\%20guide.html
 		
 	\end{thebibliography}
 	
