@@ -1,0 +1,25 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Case Study Design}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Data Collection : code snippets corpus}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Data Filtering Approach of Questions and Answers}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Pre-Processing and Extracting Code Snippets from Stack Overflow}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Finding similar Q\046A by code snippets using Clone Detection}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Case Study Result }{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Extracting Clone Detection Results for Further Processing }{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Preliminary analysis of clone detection result }{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Calculating vote differences of cloned groups}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Apply Shannon Normalized Entropy \(SNE\) for better visualization}{section.4}% 11
+\BOOKMARK [1][-]{section.5}{Factor collections and Populate factors data}{}% 12
+\BOOKMARK [2][-]{subsection.5.1}{Potential factors affecting similar question's votes}{section.5}% 13
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Questions related factors}{subsection.5.1}% 14
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Asker related factors}{subsection.5.1}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Potential factors affecting similar answer's votes}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Approaches for populating factors data}{section.5}% 17
+\BOOKMARK [1][-]{section.6}{Model Construction for Cloned Questions and answers}{}% 18
+\BOOKMARK [2][-]{subsection.6.1}{Mixed Model: Pre-processing of Populated Factors Data}{section.6}% 19
+\BOOKMARK [2][-]{subsection.6.2}{Mixed Model: Technique Selection}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.3}{Mixed Model: Cloned Questions and Answers}{section.6}% 21
+\BOOKMARK [1][-]{section.7}{Discussion}{}% 22
+\BOOKMARK [2][-]{subsection.7.1}{Threats to Validity}{section.7}% 23
+\BOOKMARK [1][-]{section.8}{Related Work}{}% 24
+\BOOKMARK [1][-]{section*.1}{References}{}% 25

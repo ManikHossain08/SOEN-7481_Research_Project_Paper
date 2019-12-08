@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{hyperref}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 	
@@ -16,6 +18,8 @@
 \begin{document}
 	
 	\title{A study on Clone Detection within the Stack Overflow Code Snippets\\
+		{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+			should not be used}
 		\thanks{I, thanks to professor Dr Tse-Hsun (Peter) Chen for helping me throughout the research projects .}
 	}
 	
@@ -29,7 +33,7 @@
 	\maketitle
 	
 	\begin{abstract}
-		Code clones from online sources are code fragments which are copied from the same online sources such as Stack Overflow. Stack Overflow is a popular online Q\&A website where developers discuss coding problems and share code examples for seeking and providing answers. Due to the popularity of this technical questions and answering website, developers are frequently copying and pasting the code snippets for asking questions and answering the questions within the Stack Overflow. In this paper, we conduct a case study with only Java questions (i.e., that have accepted answers) and accepted answers separately on Stack Overflow, to investigate i) similar questions and answers in terms of cloned code snippets ii) vote differences among the cloned  questions or answers iii) factors that could have been affected vote differences between cloned questions or answers iv) which factors exactly contribute more to the vote differences within duplicate questions or answers by building mixed-modeling. In terms of cloned questions, we found 20\% that means 60,079 (60K) java questions are cloned to each other from 291,427 (0.29 M) java questions that contains 0.37M code snippets. In terms of cloned answers, we found 12.24\% that means 16,316 (16.3K) java accepted answers are cloned to each other from 133,243 (0.13 M) java accepted answers that contains 0.13M code snippets. Furthermore, we collect around 45 factors (i.e., metrics)  in total for both questions and answers that could affect vote differences and build mixed-model to finding out which factors contribute more to the vote differences among all the factors to the cloned questions or answers. In addition, there are several factors (TODO : PROVIDE THE NUMBER) that affect vote differences of those cloned questions or answers. So, this study reveals that developers commonly use Stack Overflow to ask clarifying questions about code they reused from Stack Overflow, and again copy code snippets from Stack Overflow to provide answers to questions, but different factors are responsible for vote differences of similar questions or answers . 
+		Duplicate codes from online sources are code fragments which are copied from the same online sources such as Stack Overflow. Stack Overflow is a popular online Q\&A website where developers discuss coding problems and share code examples for seeking and providing answers. Due to the popularity of this technical questions and answering website, developers are frequently copying and pasting the code snippets for asking questions and answering the questions within the Stack Overflow. In this paper, we conduct a case study with only Java questions (i.e., that have accepted answers) and accepted answers separately on Stack Overflow, to investigate i) similar questions and answers in terms of cloned code snippets ii) vote differences among the cloned  questions or answers iii) factors that could have been affected vote differences between cloned questions or answers iv) which factors exactly contribute more to the vote differences within duplicate questions or answers by building mixed-modeling. In terms of cloned questions, we found 20\% that means 60,079 (60K) java questions are cloned to each other from 291,427 (0.29 M) java questions that contains 0.37M code snippets. In terms of cloned answers, we found 12.24\% that means 16,316 (16.3K) java accepted answers are cloned to each other from 133,243 (0.13 M) java accepted answers that contains 0.13M code snippets. Furthermore, we collect around 45 factors (i.e., metrics)  in total for both questions and answers that could affect vote differences and build mixed-model to finding out which factors contribute more to the vote differences among all the factors to the cloned questions or answers. In addition, there are 25 factors that affected vote differences of those cloned questions and answers. So, this study reveals that developers commonly use Stack Overflow to ask clarifying questions about code they reused from Stack Overflow, and again copy code snippets from Stack Overflow to provide answers to questions, but different factors are responsible for vote differences of similar questions or answers . 
 		
 	\end{abstract}
 	
@@ -96,8 +100,7 @@
 	\end{table*}
 	
 	\section{Case Study Design}
-	In this section, we describe the data collection, data filtering, data extracting and clone detection approach using NiCad clone detection tool and afterward, we will use the clone detection results to answer our two research questions. Figure-\ref{fig:dmapproach} shows a general overview of our data mining and data processing approach. We describe each step in our data processing approach below. The corresponding data and scripts are available online at:https://github.com/MMH08/SOEN-7481-Course-Project.
-	
+	In this section, we describe the data collection, data filtering, data extracting and clone detection approach using NiCad clone detection tool and afterward, we will use the clone detection results to answer our two research questions. Figure-\ref{fig:dmapproach} shows a general overview of our data mining and data processing approach. We describe each step in our data processing approach below. The corresponding data and scripts are available online at:https://github.com/MMH08/SOEN-7481-Course-Project.	
 
 	
 	
@@ -211,7 +214,7 @@
 	In this section, we will discuss briefly 16 extracted questions related factor that are mainly considered from the question's perspective.
 	
 	\begin{itemize}
-		\item \textbf{Questions\_\#ViewCount:} It is a number of visited users on a specific post.  When askers post questions, answerers view that post either for answering or find solution from the answers of that question for their problems. 
+		\item \textbf{Questions\_\#View\_Count:} It is a number of visited users on a specific post.  When askers post questions, answerers view that post either for answering or find solution from the answers of that question for their problems. 
 		\item \textbf{Questions\_Title\_Length:} Length, this is the total length of the questions title in characters.
 		\item \textbf{Questions\_Creation\_Date:}  Date and time of any posted questions on the Stack Overflow.
 		\item \textbf{Questions\_Total\_Length:} This factor indicates the total Length of whole question body including source code and all the HTML tags in the body in characters.   
@@ -267,7 +270,7 @@ We decided to build model in order to find out the more responsible factors that
 In addition,  mixed-model estimates the effects of one or more explanatory variables on a response variable. The output of a mixed model will give us a list of explanatory values, estimates and confidence intervals of their effect sizes, p-values for each effect. We use a mixed model instead of a simple linear model because we have a variable or factor that describes our data sample as a subset of the data we have collected and populated.  
 
 \subsection{Mixed Model: Technique Selection}
-Once we cleaned unwanted data, extracted factors and populated all the factors data, we decided to build the mixed model for both cloned questions. Before doing mixed modeling, we pre-process the populated cloned  data-sets for finding suitable technique that fit into our data-sets. Actually, we check the data distribution of each explanatory variables (i.e., factors/ metrics) for modeling by plotting histogram and we found that the data distribution of almost all explanatory variables (except one or two variables) are non-normal (i.e., left skewed or right skewed), hence we select glmmPQL (Fit Generalized Linear Mixed Models via PQL) technique [TODO: add link for this techniqes] to fit out mix model for our non-normal data [13].  Here, PQL mean Penalized Quasi Likelihood which is a flexible technique that actually deal with the abnormal or non-normal data, unbalanced design, and crossed-random effects. Therefore, we finally move forward with PQL technique to find out the important factors through a list of independent (i.e., explanatory variable or factors), estimates and the confidence level of their effect size and p-value for each effect. For glmmPQL technique we need to be load MASS package [TODO: cran link] in R studio.
+Once we cleaned unwanted data, extracted factors and populated all the factors data, we decided to build the mixed model for both cloned questions. Before doing mixed modeling, we pre-process the populated cloned  data-sets for finding suitable technique that fit into our data-sets. Actually, we check the data distribution of each explanatory variables (i.e., factors/ metrics) for modeling by plotting histogram and we found that the data distribution of almost all explanatory variables (except one or two variables) are non-normal (i.e., left skewed or right skewed), hence we select glmmPQL (Fit Generalized Linear Mixed Models via PQL) technique [TODO: add link for this techniqes] to fit out mix model for our non-normal data [13].  Here, PQL mean Penalized Quasi Likelihood which is a flexible technique that actually deal with the abnormal or non-normal data, unbalanced design, and crossed-random effects. Therefore, we finally move forward with PQL technique to find out the important factors through a list of independent (i.e., explanatory variable or factors), estimates and the confidence level of their effect size and p-value for each effect. For glmmPQL technique we need to be load MASS package \footnote{https://cran.r-project.org/web/packages/MASS/index.html} in R studio.
 
 \subsection{Mixed Model: Cloned Questions and Answers}
 As we chose our glmmPQL technique, we tried to build mixed model with that technique to find out most important factors (i.e., explanatory variables) that have relationship with the votes (i.e., response variable) differences among the cloned questions.  Then we will answers our two research questions as follow:
@@ -276,46 +279,87 @@ As we chose our glmmPQL technique, we tried to build mixed model with that techn
 \textbf{RQ1: What are the factors that affects the vote differences of each cloned questions (i.e., cloned in terms of code snippets)?}
 \newline
 
-\textbf{Approach}. By this PQL techniques, we will find the correlation between the dependent and independents variables that affect the vote differences among cloned questions on the Stack Overflow.  In this PQL technique, we consider votes of cloned questions as response variable (i.e., dependent variable) and all other factors are considered as the  explanatory variables (i.e., independent). Additionally,  we randomly change the fixed effect along with the family (e.g., gaussian) in the PQL technique. After several adjustment of family and fixed effect, we set the distribution to log-normal, we also set the family to gaussian (i.e., another word for normal) and the link to log, hence we got better result from this model. 
+\textbf{Approach} By this PQL techniques, we will find the correlation between the dependent and independents variables that affect the vote differences among cloned questions on the Stack Overflow.  In this PQL technique, we consider votes of cloned questions as response variable (i.e., dependent variable) and all other factors are considered as the  explanatory variables (i.e., independent). Additionally,  we randomly change the fixed effect along with the family (e.g., gaussian) in the PQL technique. After several adjustment of family and fixed effect, we set the distribution to log-normal, we also set the family to gaussian (i.e., another word for normal) and the link to log. In addition, we also add 1 to both independent and dependent variable to avoid the ZERO value to all the variables in order to avoid the error during the modeling. 
 
-This model calculate the p-value to determine the significance of the model. We focus on the p-value to know the statistically significance variables because p-value less than 0.05 (typically $\leq$ 0.05) indicates statistically significant. It also indicates strong evidence against the null hypothesis, as there is less than a 5\% probability the null is correct. Therefore, we only focus on those variables who have p-value less than 0.05 (typically $\leq$ 0.05) and ignore those variable who have p-value higher than 0.05 (\textgreater 0.05) in this model. We ignore those variables who have p-value higher than 0.05  because they does not have  relation to the response variable and they does not have any impact on the vote differences of cloned questions.  . Besides, a p-value higher than 0.05 (\textgreater 0.05) is not statistically significant and indicates weak evidence against the null hypothesis. This means we fail to reject the null hypothesis and cannot accept the alternative hypothesis.\newline
+This model calculate the p-value to determine the significance of the model. We focus on the p-value to know the statistically significance variables because p-value less than 0.05 (typically $\leq$ 0.05) indicates statistically significant. It also indicates strong evidence against the null hypothesis, as there is less than a 5\% probability the null is correct. Therefore, we only focus on those variables who have p-value less than 0.05 (typically $\leq$ 0.05) and ignore those variable who have p-value higher than 0.05 (\textgreater 0.05) in this model. We ignore those variables who have p-value higher than 0.05  because they does not have  relation to the response variable and they does not have any impact on the vote differences of cloned questions. Besides, a p-value higher than 0.05 (\textgreater 0.05) is not statistically significant and indicates weak evidence against the null hypothesis. This means we fail to reject the null hypothesis and cannot accept the alternative hypothesis. Therefore, finally, the factors which are not statistically significant (i.e., p-value higher than 0.05) in the modeling, we just ignore those variable after applying Anova() function from the model to avoid the biased results and then again we build the model with statistically significant variables that improve our results. We frequently use summary() and Anova() functions for checking our results in the model only with the statistically significant variables. \newline
 
-\textbf{Resutls}  We apply Anova() function to our model  because Anova() functions does Wald $\chi^2$ test, which tell us how confident we are of our estimate of the effect of explanatory variable. The larger the Wald $\chi^2$ value, the larger the impact of a factor on the vote differences. Table [TODO: tabel no], show the factors list that have the impact on the vote differences of the similar questions on the Stack Overflow. As a result, we can say that the explanatory (i.e., independent) variable marked with stars (*) have effect on the cloned questions and create vote differences among the cloned questions in each group. In terms of results of our model, we notice that there are 11 factors have impact on the vote differences of the cloned questions on the Stack Overflow.
+\textbf{Resutls}  When apply Anova() function to the results of our model, Anova() functions does Wald $\chi^2$ test, which tell us how confident we are of our estimate of the effect of explanatory variable. The larger the Wald $\chi^2$ value, the larger the impact of a factor on the vote differences. Table \ref{table:RQOneResutls} shows the factors list that have the impact on the vote differences of the similar questions on the Stack Overflow. As a result, we can say that the explanatory (i.e., independent) variable marked with stars (*) have effect on the cloned questions and create vote differences among the cloned questions in each group. In terms of results of our model, we notice that there are 12 factors have impact on the vote differences of the cloned questions on the Stack Overflow.
+
+Overall, we found 12 most accountable factors of cloned questions (i.e., cloned in terms of code snippets) through our mixed modeling that affect their (i.e., similar answers) vote differences. Table-\ref{table:RQOneResutls} shows  all the factors list that are responsible and have affected the vote of cloned questions that leads to the vote differences among cloned questions on the Stack Overflow.
+ \newline
+
+\begin{table}[ht]
+	\caption{\textbf{Cloned Question's Factors:} An overview of the results of our mixed modeling using \textnormal{glmmPQL} technique}
+	\centering
+	\begin{tabular}{l l l l}
+		\hline\hline
+		Factor & Chisq & Df & Pr(\textgreater Chisq) \\ [0.5ex]
+		\hline
+		Questions\_\#View\_Count   &    2421.3314 & 1 & \textbf{\textless 2.2e-16 ***} \\
+		Questions\_\#Favourite\_Count   &     9398.0137 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Questions\_\#Code\_Snippets   &  243.8100 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Questions\_\#Revision &  506.2181 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Questions\_\#Link\_Tags      &        14.6679 &  1 & \textbf{0.0001282 ***}\\
+		Questions\_\#Tags      &         9.9967 & 1 & 0.0015682 ** \\
+		Questions\_CodeRatio\_Percentage & 336.0658 &  1 &  \textbf{\textless 2.2e-16 ***}\\
+		Questions\_\#Answers\_Contains      &    508.8827 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Asker\_\_Total\_DownVotes     &    77.7744 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Asker\_\#Posted\_Questions &  72.9072  & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Asker\_\#Posted\_Answers   &  73.3646 & 1 & \textbf{\textless 2.2e-16 ***}\\
+		Asker\_Reputation\_Score & 161.9860 & 1 & \textbf{\textless 2.2e-16 ***}\\[1ex]
+		\hline
+	\end{tabular}
+	\label{table:RQOneResutls}
+\end{table} 
+
+\textbf{RQ2: What are the factors that affects the vote differences of each cloned answers (i.e., cloned in terms of code snippets)?}\newline
+
+\textbf{Approach} Basically, we follow the same approach of the cloned questions in RQ1. For RQ2, in terms of cloned answers,  we also apply this glmmPQL technique individually. Therefore, we will not discuss the same approach here in this RQ2. We will only discuss the result from the cloned answers data-sets after modeling by using the glmmPQL technique.\newline
+
+\textbf{Resutls}  We also apply Anova() function to the results of our model for answers and did same things like cloned questions in RQ1, hence we will not describe everything here in this RQ2. Table \ref{table:RQTwoResutls} shows the factors list that have the impact on the vote differences of the similar questions on the Stack Overflow. As a result, we can say that the explanatory (i.e., independent) variable marked with stars (*) have effect on the cloned questions and create vote differences among the cloned questions in each group. In terms of results of our model, we notice that there are 13 factors have impact on the vote differences of the cloned answers on the Stack Overflow. Needless to say that for each post of the answerers, we calculated min, median, max, variance, 25 percentile of up votes and consider these each terms as explanatory variable in the modeling and we also noticed that all of them are statistically significant. But in the Table-\ref{table:RQTwoResutls}, we show the result as a single factors because their Pr(\textgreater Chisq) value are same and all are statistically significant as well as we want to count all the unique factors number at once. Therefore, we keep all the factors together in the table. 
+
+Overall, we found 13 responsible factors of cloned answers (i.e., cloned in terms of code snippets) through our mixed modeling that affect their (i.e., similar answers) vote differences. Table-\ref{table:RQTwoResutls} shows  all the factors list that are liable and have affected the cloned answers vote differences on the Stack Overflow.
+
+	\begin{table}[ht]
+	\caption{\textbf{Cloned Answer's Factors:} An overview of the results of our mixed modeling using \textnormal{glmmPQL} technique}
+	\centering
+	\begin{tabular}{l l l l}
+		\hline\hline
+		Factor & Chisq & Df & Pr(\textgreater Chisq) \\ [0.5ex]
+		\hline
+		Answer\_length         &               16.183 &  1 &  \textbf{5.752e-05 ***} \\
+		Answer\_\#Code\_Snippets    &         178.222 & 1 & \textbf{\textless 2.2e-16} *** \\
+		Answer\_\#Comments         &         21.129 & 1 & \textbf{4.293e-06 ***} \\
+		Answer\_\#Revision    &       999.592 & 1 & \textbf{\textless 2.2e-16} *** \\
+		Answer\_\#LinkTags            &         113.283 & 1 & \textbf{\textless 2.2e-16} *** \\
+		Answer\_Total\_Code\_Length        &       16.726&  1 & \textbf{4.318e-05 ***} \\
+		Answerer\_Reputation\_Score   &     61.282 & 1  & \textbf{4.946e-15 ***} \\
+		Answerer\_Total\_Down\_Votes      &      1043.758 & 1  & \textbf{\textless 2.2e-16} *** \\
+		Answerer\_Posted\_Questions   &   1916.234 & 1 & \textbf{\textless 2.2e-16} *** \\
+		Answerer\_Posted\_Answers    &    1827.784 & 1 & \textbf{\textless 2.2e-16} *** \\
+		Answerer\_\#Revision\_In\_Answers & 131.795 & 1 &  \textbf{\textless 2.2e-16} *** \\
+		\makecell{Answerer\_Min/Mean/Max/Variance/\\Average/25 Percentile\\\_UpVotes\_EachPost }      &      4647.572 & 1  & \textbf{\textless 2.2e-16} *** \\
+		Answerer\_Variance\_Down\_Votes    &  129.151 & 1&  \textbf{\textless 2.2e-16} *** \\[1ex]
+		\hline
+	\end{tabular}
+	\label{table:RQTwoResutls}
+\end{table}
+
+ \section{Discussion}
+This quantitative study shows that the clone detection case study of online code clones occur on Stack Overflow for both questions and answers. According to our experience and the case study result, developers are re-use code snippets whenever needed either for posting questions and answers on the Stack Overflow, technical Q\&A website. From our motivation, developers are copying and pasting code snippets for different purposes and generating duplicate questions and answers on Stack Overflow in terms of clone code snippets. So, the scope of this paper is that although the cloned questions and answers are similar though their code snippets, why their vote are different to each other. In other word, although programmers are posting duplicate posts (i.e., questions and answers) on Stack Overflow at different time period, we observe that those similar questions and answers have vote variance. Therefore, we investigate all the responsible factors by building mixed modeling ( i.e., PQL technique of mixed modeling) and confirmed 25 factors that are responsible for their vote variances. As a result, after investigating the issue of vote differences, we found 12 factors for questions and 13 factors for the answers that are affecting their vote. This discussion draw the conclusion since we extracted cloned questions and answers from Stack Overflow and detected all the responsible factors that affect the vote differences of those similar or duplicate questions and answer through mixed modeling.\newline     
 
 
+Although this study contains some threats to validity that we will discuss in Section\ref{TTV}. In the future, we plan to study code reuse issues in other Q\&A websites and in large-scale open-source systems.
+\subsection{Threats to Validity}\label{TTV}
+\textbf{Internal Validity Threats} From the beginning to the end, we applied different kinds of tools and technologies and even we also developed three (3) java tools for extracting data into CSV files to find the clone code snippets as well more responsible factors that affect similar questions and answers. First, we developed java tools for extracting code snippets of "java" to find the cloned code snippet. Yet, one of our tools for extracting java code snippets could not identify all the java code snippets because askers provide other languages source code such as C, C++, XML, SQL and so on as an example or supportive code in the post. As a result, the code snippets we collected for clone detection leads to more error rate by the NiCad clone detection tool. Second, during the clone detection, NiCad could generate wrong clone with 70\% similarity using Type-3 settings of NiCad, therefore we checked the clone manually and we found several false positive clone. In addition, as we set 10 LOC (Lines of Code) as a threshold for clone size in the NiCad,  the accurateness of the cloned code would be biased because AST parser of NiCad compare the sub-tree of the java source code. Therefore, wrong cloned may be generated, although there are not exact or 100\% matched between the cloned codes. Finally, during the investigation of the responsible factors that affect the vote differences among the cloned or similar posts on the Stack Overflow, the results of the mixed-model could be more accurate if we only used the cloned specific data-sets for each groups. But in this study, we use all the raw data-sets instead of summarizing the clone group specific data-sets for both questions and answers.           
+\newline
+\textbf{External Validity Threats} We chose Stack Overflow for our case study because it is very popular online open source technical Q\&A website all over the world with 16.5 millions questions, 26 millions answers, 9 millions accepted answer, and 10 millions users by the end of 2018 and data dumps are also available on their official website\footnote{https://archive.org/details/stackexchange}. This website contain wide range of programming languages with code snippets as an example and java is very popular programming language throughout the word. Therefore, in terms of code snippets, we downloaded a full data dump and extracted Java questions that have accepted answers and answers that are accepted and they are the most likely ones to be reused by the developers. Our result and finding may not be generalized to all programming languages and all posts on Stack Overflow.
 
+ \section{Related Work}\label{RW}
+ In this section \ref{RW}, we discuss related works that investigated Q\&A websites for finding clone code snippets. We already know that SO is very popular online technical Q\&A website throughout the world. S. A Licorish et at. \cite{b14} investigate code reuse between Stack Overflow to Open Source Software (OSS). When developers reusing code from Stack Overflow for their OSS projects may violate licensing agreements if their attributions are not correct. The authors analyzed CCFinder and apply this tool for finding the cloned code snippets. D. Yang et al. \cite{b15} wished to  study how developers use Stack Overflow code snippets in their projects and is it possible to find out the copied Stack Overflow code snippets in the developers real projects (e.g., GitHub projects)?.  C. Ragkhitwetsagul  et al. \cite{b16} studied online code clones that are copied from software projects or online sources to Stack Overflow as examples.  After the code has been copied from Stack Overflow to personal software projects, they can be harmful code snippets (i.e., they suffer from being outdated or violating the original software license) because a lack of checking mechanism.  M.A Nishi et al. \cite{b1} investigate similar or clone code snippets among two popular online programming resources such as the Stack Overflow Q\&A site and software development free online programming tutorials websites. The authors were concern to understand the frequency of reusing the source code between these two sources, to acquire knowledge about why developers copy code snippets from one online source to the other, and to understand the evolution of duplicated source code over time. Le An et al. \cite{b5} investigate whether developers respect license terms (i.e., \textit{Creative Commons Attribute-ShareAlike 3.0 Unported}) when reusing source code from Stack Overflow posts (and the other way around) and find the license violation by the developers while copy and paste code. R. Abdalkareem et al. \cite{b1} understand the impact of code reuse from Stack Overflow by an exploratory study which focusing on code reuse from Stack Overflow in terms of mobile apps and further study to know how much, why, when, and who reuses code. Moreover, to understand the potential implications of code reuse, we examine the percentage of bugs in files that reuse Stack Overflow code.
 
- 
-
-\section{Mixed Model Result}
-	hhhhhhhhhhhhh
-	\section*{Acknowledgment}
-	
-	The preferred spelling of the word ``acknowledgment'' in America is without 
-	an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-	G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-	acknowledgments in the unnumbered footnote on the first page.
-	
-	\section*{References}
-	
-	Please number citations consecutively within brackets \cite{b1}. The 
-	sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-	number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-	the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
-	
-	Number footnotes separately in superscripts. Place the actual footnote at 
-	the bottom of the column in which it was cited. Do not put footnotes in the 
-	abstract or reference list. Use letters for table footnotes.
-	
-	Unless there are six authors or more give all authors' names; do not use 
-	``et al.''. Papers that have not been published, even if they have been 
-	submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-	that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-	Capitalize only the first word in a paper title, except for proper nouns and 
-	element symbols.
-	
-	For papers published in translation journals, please give the English 
-	citation first, followed by the original foreign-language citation \cite{b6}.
+\section{Conclusion}
+The question and Answer (Q\&A) website, Stack Overflow, is very popular and overly used online website where programmer discuss programming problems, share expertise, and exchange ideas as well as provides  a code snippets in the posts to support their questions and answers as an example. It also allow users to reuse the code snippets within the Stack Overflow community for all questions and answers. 
 	
 	\begin{thebibliography}{00}
 		\bibitem{b1} M. A. Nishi, A. Ciborowska, and K. Damevski, “Characterizing duplicate code snippets between stack overflow and tutorials,” in IEEE International Working Conference on Mining Software Repositories, Montreal, QC, Canada, 2019, vol. 2019-May, pp. 240–244.
@@ -331,6 +375,10 @@ This model calculate the p-value to determine the significance of the model. We 
 		\bibitem{b11} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
 		\bibitem{b12} J. R. Cordy and C. K. Roy, “The NiCad clone detector,” in Proceedings of the 19th International Conference on Program Comprehension (ICPC 2011). IEEE, 2011, pp. 219–220.
 		\bibitem{b13} https://ase.tufts.edu/gsc/gradresources/guidetomixedmodelsinr/mixed\%20model\%20guide.html
+		\bibitem{b14} Code Reuse in Stack Overflow and Popular Open Source Java Projects
+		\bibitem{b15} Stack Overflow in Github: Any Snippets There?
+		\bibitem{b16} Toxic Code Snippets on Stack Overflow
+		
 		
 	\end{thebibliography}
 	
