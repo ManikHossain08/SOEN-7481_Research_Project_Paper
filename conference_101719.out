@@ -3,7 +3,7 @@
 \BOOKMARK [2][-]{subsection.2.1}{Data Collection : code snippets corpus}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Data Filtering Approach of Questions and Answers}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Pre-Processing and Extracting Code Snippets from Stack Overflow}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Finding similar Q\046A by code snippets using Clone Detection}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.4}{Finding similar Q\046A by code snippets using clone detection}{section.2}% 6
 \BOOKMARK [1][-]{section.3}{Case Study Result }{}% 7
 \BOOKMARK [2][-]{subsection.3.1}{Extracting Clone Detection Results for Further Processing }{section.3}% 8
 \BOOKMARK [1][-]{section.4}{Preliminary analysis of clone detection result }{}% 9
@@ -22,4 +22,5 @@
 \BOOKMARK [1][-]{section.7}{Discussion}{}% 22
 \BOOKMARK [2][-]{subsection.7.1}{Threats to Validity}{section.7}% 23
 \BOOKMARK [1][-]{section.8}{Related Work}{}% 24
-\BOOKMARK [1][-]{section*.1}{References}{}% 25
+\BOOKMARK [1][-]{section.9}{Conclusion}{}% 25
+\BOOKMARK [1][-]{section*.1}{References}{}% 26
