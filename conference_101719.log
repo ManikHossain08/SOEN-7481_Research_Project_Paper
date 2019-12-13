@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  10 DEC 2019 19:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 DEC 2019 20:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -685,23 +685,23 @@ Overfull \hbox (41.16606pt too wide) in paragraph at lines 146--155
  [][] 
  []
 
-<../NicadResult.png, id=179, 805.0075pt x 590.205pt>
+<../NicadResult.png, id=177, 805.0075pt x 590.205pt>
 File: ../NicadResult.png Graphic file (type png)
 <use ../NicadResult.png>
 Package pdftex.def Info: ../NicadResult.png  used on input line 159.
 (pdftex.def)             Requested size: 361.19843pt x 264.81529pt.
 [5]
-<../BigNumberBoxplot.png, id=198, 1690.315pt x 1628.0825pt>
+<../BigNumberBoxplot.png, id=196, 1690.315pt x 1628.0825pt>
 File: ../BigNumberBoxplot.png Graphic file (type png)
 <use ../BigNumberBoxplot.png>
 Package pdftex.def Info: ../BigNumberBoxplot.png  used on input line 183.
 (pdftex.def)             Requested size: 189.0pt x 182.02104pt.
-<../SNE.png, id=202, 313.17pt x 59.22125pt>
+<../SNE.png, id=200, 313.17pt x 59.22125pt>
 File: ../SNE.png Graphic file (type png)
 <use ../SNE.png>
 Package pdftex.def Info: ../SNE.png  used on input line 192.
 (pdftex.def)             Requested size: 138.60077pt x 26.21013pt.
-<../Answer_Functions.png, id=203, 1599.9775pt x 1676.2625pt>
+<../Answer_Functions.png, id=201, 1599.9775pt x 1676.2625pt>
 File: ../Answer_Functions.png Graphic file (type png)
 <use ../Answer_Functions.png>
 Package pdftex.def Info: ../Answer_Functions.png  used on input line 198.
@@ -877,9 +877,9 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 392.
  ) 
 Here is how much of TeX's memory you used:
- 8261 strings out of 492649
- 121254 string characters out of 6129622
- 230786 words of memory out of 5000000
+ 8260 strings out of 492649
+ 121242 string characters out of 6129622
+ 230773 words of memory out of 5000000
  11956 multiletter control sequences out of 15000+600000
  46173 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -894,10 +894,10 @@ ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
 ist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw
 /times/utmri8a.pfb>
-Output written on conference_101719.pdf (12 pages, 675370 bytes).
+Output written on conference_101719.pdf (12 pages, 675104 bytes).
 PDF statistics:
- 339 PDF objects out of 1000 (max. 8388607)
- 302 compressed objects within 4 object streams
- 81 named destinations out of 1000 (max. 500000)
+ 336 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
+ 80 named destinations out of 1000 (max. 500000)
  234 words of extra memory for PDF output out of 10000 (max. 10000000)
 
